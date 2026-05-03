@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PêcheMR – Pêche en Mauritanie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --ocean:#0a4f6e;--deep:#062d42;--wave:#1a8fa8;
+      --sand:#e8d5a3;--foam:#c8edd6;--accent:#f4a63a;
+      --text:#1a1a1a;--muted:#666;--bg:#f5f0e8
+    }
+    body{font-family:'Lato',sans-serif;color:var(--text);background:var(--bg)}
+
+    /* ── NAV ── */
+    nav{
+      background:var(--deep);padding:1rem 2rem;
+      display:flex;justify-content:space-between;align-items:center;
+      position:sticky;top:0;z-index:100
+    }
+    .logo{color:white;font-family:'Playfair Display',serif;font-size:1.4rem;letter-spacing:2px}
+    .logo span{color:var(--accent)}
+    .nav-links a{
+      color:rgba(255,255,255,0.8);text-decoration:none;
+      margin-left:1.5rem;font-size:0.85rem;letter-spacing:1px;
+      text-transform:uppercase;transition:color .2s
+    }
+    .nav-links a:hover{color:var(--accent)}
+
+    /* ── HERO ── */
+    .hero{
+      background:linear-gradient(160deg,var(--deep) 0%,var(--ocean) 60%,#1a8fa8 100%);
+      min-height:480px;display:flex;align-items:center;
+      padding:3rem 2rem;position:relative;overflow:hidden
+    }
+    .hero::after{
+      content:'';position:absolute;bottom:-1px;left:0;right:0;height:80px;
+      background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 80'%3E%3Cpath fill='%23f5f0e8' d='M0,50 C200,20 400,80 600,50 C800,20 1000,80 1200,50 L1200,80 L0,80 Z'/%3E%3C/svg%3E") no-repeat bottom;
+      background-size:cover
+    }
+    .hero-text{max-width:560px;z-index:1}
+    .hero-text h1{font-family:'Playfair Display',serif;color:white;font-size:3rem;line-height:1.15;margin-bottom:1rem}
+    .hero-text h1 em{color:var(--accent);font-style:italic}
+    .hero-text p{color:rgba(255,255,255,0.75);font-size:1rem;line-height:1.7;margin-bottom:1.8rem;font-weight:300}
+    .hero-fish{position:absolute;right:8%;top:50%;transform:translateY(-50%);font-size:9rem;opacity:0.18;animation:float 4s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(-50%)}50%{transform:translateY(-58%)}}
+    .btn{
+      background:var(--accent);color:var(--deep);
+      padding:.8rem 2rem;border:none;border-radius:30px;
+      font-weight:700;font-size:.9rem;cursor:pointer;
+      letter-spacing:1px;text-transform:uppercase;
+      transition:transform .2s,opacity .2s;display:inline-block;
+      text-decoration:none
+    }
+    .btn:hover{opacity:.9;transform:translateY(-2px)}
+
+    /* ── SECTIONS ── */
+    section{padding:3.5rem 2rem}
+    .section-title{font-family:'Playfair Display',serif;font-size:2rem;color:var(--deep);margin-bottom:.4rem;text-align:center}
+    .section-sub{text-align:center;color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;font-weight:300}
+
+    /* ── CARDS SERVICES ── */
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem;max-width:900px;margin:0 auto}
+    .card{background:white;border-radius:14px;padding:1.5rem;border:1px solid rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s}
+    .card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(10,79,110,.12)}
+    .card-icon{font-size:2.2rem;margin-bottom:.8rem}
+    .card h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--deep);margin-bottom:.4rem}
+    .card p{font-size:.83rem;color:var(--muted);line-height:1.6}
+
+    /* ── SPOTS ── */
+    .spots-section{background:var(--deep)}
+    .spots-section .section-title{color:white}
+    .spots-section .section-sub{color:rgba(255,255,255,.55)}
+    .spot-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;max-width:900px;margin:0 auto}
+    .spot{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:1.2rem;display:flex;align-items:flex-start;gap:.8rem}
+    .spot-num{background:var(--accent);color:var(--deep);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;flex-shrink:0;margin-top:2px}
+    .spot h4{font-size:.95rem;font-weight:700;margin-bottom:.25rem;color:white}
+    .spot p{font-size:.78rem;color:rgba(255,255,255,.55);line-height:1.5}
+    .tip-spot{font-size:.7rem;background:rgba(244,166,58,.2);color:var(--accent);padding:2px 8px;border-radius:20px;display:inline-block;margin-top:.4rem}
+
+    /* ── FORMULAIRE ── */
+    .contact{background:var(--bg)}
+    .contact-box{max-width:480px;margin:0 auto;background:white;border-radius:16px;padding:2rem;border:1px solid rgba(0,0,0,.06)}
+    .field{margin-bottom:1rem}
+    .field label{display:block;font-size:.78rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#888;margin-bottom:.4rem}
+    .field input,.field select,.field textarea{width:100%;padding:.7rem .9rem;border:1px solid #ddd;border-radius:8px;font-family:'Lato',sans-serif;font-size:.9rem;color:#222;outline:none;transition:border .2s}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--wave)}
+    .field textarea{height:90px;resize:none}
+    #msg-retour{margin-top:1rem;padding:.8rem 1rem;border-radius:8px;font-size:.88rem;display:none;text-align:center}
+    #msg-retour.success{background:#e6f9ef;color:#1a6e3e;border:1px solid #a8e0c0}
+    #msg-retour.error{background:#fdecea;color:#8b1a1a;border:1px solid #f5b0a8}
+
+    /* ── FOOTER ── */
+    footer{background:var(--deep);color:rgba(255,255,255,.5);text-align:center;padding:1.5rem;font-size:.8rem}
+    footer span{color:var(--accent)}
+
+    @media(max-width:600px){
+      .hero-text h1{font-size:2rem}
+      .hero-fish{display:none}
+      .nav-links{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">PÊCHE<span>MR</span></div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#spots">Spots</a>
+    <a href="#contact">Réserver</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-fish">🐟</div>
+  <div class="hero-text">
+    <h1>L'art de la pêche,<br><em>revisité</em></h1>
+    <p>Découvrez les meilleurs spots de pêche en Mauritanie, des conseils d'experts et une communauté passionnée. Débutant ou professionnel, bienvenue.</p>
+    <a href="#contact" class="btn">Réserver une sortie</a>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-title">Nos services</div>
+  <div class="section-sub">Tout ce dont vous avez besoin pour une session réussie</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🎣</div>
+      <h3>Équipement</h3>
+      <p>Cannes, moulinets, hameçons et appâts de qualité professionnelle pour tous les types de pêche.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🗺️</div>
+      <h3>Cartes des spots</h3>
+      <p>Accédez aux meilleures zones de pêche locales avec données actualisées et recommandations.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎓</div>
+      <h3>Formation</h3>
+      <p>Cours pour débutants et ateliers avancés animés par des pêcheurs professionnels locaux.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌊</div>
+      <h3>Sorties guidées</h3>
+      <p>Excursions en mer avec des guides expérimentés. Matériel fourni, aucune expérience requise.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SPOTS -->
+<section id="spots" class="spots-section">
+  <div class="section-title">Spots populaires</div>
+  <div class="section-sub">Les lieux incontournables pour les pêcheurs mauritaniens</div>
+  <div class="spot-list">
+    <div class="spot">
+      <div class="spot-num">1</div>
+      <div>
+        <h4>Baie de Nouadhibou</h4>
+        <p>Richesse exceptionnelle en poissons. Idéal pour la pêche au mulet et au mérou.</p>
+        <span class="tip-spot">Meilleure saison : Oct–Fév</span>
+      </div>
+    </div>
+    <div class="spot">
+      <div class="spot-num">2</div>
+      <div>
+        <h4>Plage de Nouakchott</h4>
+        <p>Accessible et idéal pour les familles. Sardines et carangues en abondance.</p>
+        <span class="tip-spot">Tôt le matin</span>
+      </div>
+    </div>
+    <div class="spot">
+      <div class="spot-num">3</div>
+      <div>
+        <h4>Banc d'Arguin</h4>
+        <p>Parc national classé UNESCO. Biodiversité marine unique au monde.</p>
+        <span class="tip-spot">Permis requis</span>
+      </div>
+    </div>
+    <div class="spot">
+      <div class="spot-num">4</div>
+      <div>
+        <h4>Côte de Rosso</h4>
+        <p>Le long du fleuve Sénégal. Pêche en eau douce avec tilapia et capitaine.</p>
+        <span class="tip-spot">Toute l'année</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="section-title">Réservez une sortie</div>
+  <div class="section-sub">Envoyez-nous votre demande, nous vous répondons sous 24h</div>
+  <div class="contact-box">
+    <div class="field">
+      <label>Votre nom</label>
+      <input type="text" id="nom" placeholder="Mohamed Ould...">
+    </div>
+    <div class="field">
+      <label>Téléphone / WhatsApp</label>
+      <input type="text" id="telephone" placeholder="+222 XX XX XX XX">
+    </div>
+    <div class="field">
+      <label>Type de pêche</label>
+      <select id="type_peche">
+        <option>Pêche en mer</option>
+        <option>Pêche en eau douce</option>
+        <option>Pêche sportive</option>
+        <option>Formation débutant</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Message</label>
+      <textarea id="message" placeholder="Décrivez votre projet..."></textarea>
+    </div>
+    <button class="btn" id="btn-envoyer" style="width:100%;text-align:center" onclick="envoyer()">
+      Envoyer la demande
+    </button>
+    <div id="msg-retour"></div>
+  </div>
+</section>
+
+<footer>
+  Fait avec ❤️ pour les pêcheurs mauritaniens &mdash; <span>PêcheMR © 2026</span>
+</footer>
+
+<script>
+async function envoyer() {
+  const btn = document.getElementById('btn-envoyer');
+  const retour = document.getElementById('msg-retour');
+  const nom = document.getElementById('nom').value.trim();
+  const telephone = document.getElementById('telephone').value.trim();
+  const type_peche = document.getElementById('type_peche').value;
+  const message = document.getElementById('message').value.trim();
+
+  if (!nom || !telephone) {
+    retour.className = 'error';
+    retour.style.display = 'block';
+    retour.textContent = 'Veuillez remplir votre nom et téléphone.';
+    return;
+  }
+
+  btn.textContent = 'Envoi en cours...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('/api/reserver', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({nom, telephone, type_peche, message})
+    });
+    const data = await res.json();
+
+    retour.style.display = 'block';
+    if (data.success) {
+      retour.className = 'success';
+      retour.textContent = data.message;
+      document.getElementById('nom').value = '';
+      document.getElementById('telephone').value = '';
+      document.getElementById('message').value = '';
+    } else {
+      retour.className = 'error';
+      retour.textContent = data.erreur;
+    }
+  } catch (e) {
+    retour.className = 'error';
+    retour.style.display = 'block';
+    retour.textContent = 'Erreur réseau. Réessayez.';
+  }
+
+  btn.textContent = 'Envoyer la demande';
+  btn.disabled = false;
+}
+</script>
+</body>
+</html>
